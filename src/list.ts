@@ -7,6 +7,12 @@ export interface Item {
 export type ShoppingList = Item[];
 
 export function addItem(list: ShoppingList, name: string, quantity = 1): ShoppingList {
+  const existing = list.find((i) => i.name === name);
+  if (existing) {
+    return list.map((i) =>
+      i.name === name ? { ...i, quantity: i.quantity + quantity } : i
+    );
+  }
   return [...list, { name, quantity, checked: false }];
 }
 
